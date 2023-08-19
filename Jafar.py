@@ -1,19 +1,19 @@
-import pyttsx3  # For text-to-speech
-import speech_recognition as sr  # For speech recognition
+import pyttsx3  
+import speech_recognition as sr  
 import requests
 
 class Jafar:
     def __init__(self):
         self.engine = pyttsx3.init()
         self.recognizer = sr.Recognizer()
-        self.weather_api_key = "fa3dd24a9a6248019da45825231908"
+        self.weather_api_key = "YOUR_OPENWEATHERMAP_API_KEY" 
         self.commands = {
             "hello": "Hello! How can I assist you?",
             "how are you": "I'm just a computer program, but I'm functioning well!",
             "whats your name?": "My name is Jafar, My creator gave it to me",
             "goodbye": "Goodbye! Have a great day.",
-            "bye":"Bye Bye!",
-            "weather": "I'm sorry, I don't have access to real-time weather information."
+            "bye": "Bye Bye!",
+            "weather": "Please ask me about the weather using 'What's the weather like in [city]?'",
         }
 
     def get_weather(self, city_name):
@@ -21,7 +21,7 @@ class Jafar:
         params = {
             "q": city_name,
             "appid": self.weather_api_key,
-            "units": "metric"  # You can use "imperial" for Fahrenheit
+            "units": "metric"  
         }
         
         response = requests.get(base_url, params=params)
@@ -54,9 +54,10 @@ class Jafar:
     def respond(self, user_input):
         for command, response in self.commands.items():
             if command == "weather":
-                    city_name = input("Which city's weather would you like to know? ")
-                    weather_response = self.get_weather(city_name)
-                    self.speak(weather_response)
+                self.speak("Which city's weather would you like to know? ")
+                city_name = self.listen()
+                weather_response = self.get_weather(city_name)
+                self.speak(weather_response)
             elif command in user_input:
                 self.speak(response)
                 return
@@ -64,12 +65,12 @@ class Jafar:
 
 def main():
     jafar = Jafar()
-    jafar.speak("Hello! I'm Jaafar, your personal AI. How can I assist you today?")
+    jafar.speak("Hello! I'm Jafar, your personal AI. How can I assist you today?")
     
     while True:
         user_input = jafar.listen()
         jafar.respond(user_input)
-        if "goodbye" or "bye" in user_input:
+        if "goodbye" in user_input or "bye" in user_input:  # Corrected condition
             break
 
 if __name__ == "__main__":
