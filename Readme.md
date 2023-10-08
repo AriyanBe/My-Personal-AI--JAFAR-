@@ -1,7 +1,6 @@
 My personal AI, his name is Jafar. Be kind to him please :>
 
-pyttsx3 for text-to-speech
-speech_recognition for speech recognition
+integrated with frameworks like pyttsx3 to enable text-to-speech functionality, and incorporated speech recognition capabilities for comprehensive text and speech recognition.
 
 Currently in development
 
